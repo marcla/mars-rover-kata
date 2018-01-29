@@ -32,7 +32,22 @@ class Rover {
     return directions[way];
   }
 
-  setInstruction(roadmap = []) {
+  sendCommands(roadmap = [], subscribe = {}) {
+    const { directions } = this.props;
+    let plot;
+
+    const traceroute = roadmap.map((command) => {
+      plot = this.move(command);
+      Object.assign(plot, {
+        cmd: command,
+        direction: directions[plot.way]
+      });
+      subscribe.next(plot);
+
+      return plot;
+    });
+
+    subscribe.complete(traceroute);
   }
 
   /**
@@ -40,22 +55,29 @@ class Rover {
    * left/right (l,r)
    */
   move(command) {
+    let { way, position } = this.state;
+
     switch (command) {
       case 'l':
-        this.turnLeft();
+        way = this.turnLeft();
         break;
       case 'r':
-        this.turnRight();
+        way = this.turnRight();
         break;
       case 'f':
-        this.moveForward();
+        position = this.moveForward();
         break;
       case 'b':
-        this.moveBackward();
+        position = this.moveBackward();
         break;
       default:
         throw new Error('Abort procedure, unknow command!');
     }
+
+    this.state.way = way;
+    this.state.position = position;
+
+    return { position, way };
   }
 
   checkEdgeMap(axis, size) {
@@ -94,27 +116,25 @@ class Rover {
       throw new Error('Abort procedure, collision detected!');
     }
 
-    this.state.position = position;
-
-    return true;
+    return position;
   }
 
   moveBackward() {
-    this.moveForward({ backward: true });
+    return this.moveForward({ backward: true });
   }
 
   turnRight() {
     const { directions } = this.props;
     const { way } = this.state;
 
-    this.state.way = (way + 1 < directions.length) ? way + 1 : 0;
+    return (way + 1 < directions.length) ? way + 1 : 0;
   }
 
   turnLeft() {
     const { directions } = this.props;
     const { way } = this.state;
 
-    this.state.way = ((way - 1) > 0) ? way - 1 : (directions.length - 1);
+    return ((way - 1) >= 0) ? way - 1 : (directions.length - 1);
   }
 }
 
