@@ -1,36 +1,41 @@
 
 (function () {
     const Mars = new Planet({
-      width: 5,
-      height: 5,
-      rateObstacle: 0,
+      width: 6,
+      height: 6,
+      rateObstacle: 6,
     });
     const Explorer = new Rover(Mars, { name: 'Explorer' });
     const Display = new View(Mars, Explorer);
 
-    setInterval(() => {
+    // console.log(Mars.store.map);
+    console.log(Explorer.getPosition());
 
-    }, 2000);
-
-    // console.log(Explorer.getPosition());
-
-    Explorer.sendCommands(['f','b','b','b','b','r','b','b','b','l','r','b','b','b','l','b','l','f','l','b'], {
+    Explorer.sendCommands(Display.generateRoute(), {
       next: (data) => {
-        document.getElementById(`plot-${data.position.x}-${data.position.y}`).appendChild(Display.props.roverDom);
-
         console.log(JSON.stringify(data));
-        // console.log(`command ${data.cmd} x:${data.position.x} y:${data.position.y} in direction ${data.direction}`);
+        if (data.success === true) {
+          Display.moveRover(data);
+        }
       },
       complete: (data) => {
         console.log('=== COMPLETE ===');
         console.log(data);
+      },
+      onerror: (e) => {
+        console.log('=== ERROR ===');
+        console.log(e);
       }
     });
 
-    // const roadmap = generateRoute();
-    // console.log(roadmap);
-    // function generateRoute(size = 20) {
-    //   const commands = ['f','b','l','r'];
-    //   return [...Array(size).keys()].map(() => commands[Math.floor(Math.random() * (commands.length - 1 + 1) + 1) - 1]);
-    // }
+    // Explorer.sendCommands(['f','b','b','b','b','r','b','b','b','l','r','b','b','b','l','b','l','f','l','b'], {
+    //   next: (data) => {
+    //     Display.moveRover(data.position);
+    //     console.log(JSON.stringify(data));
+    //   },
+    //   complete: (data) => {
+    //     console.log('=== COMPLETE ===');
+    //     console.log(data);
+    //   }
+    // });
 })();

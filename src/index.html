@@ -27,58 +27,65 @@
       align-items: center;
     }
 
-    .rover {}
-    .rover::after {
+    #item-rover::after {
       content: '🚌';
       display: block;
+      width: 50px;
+      height: 50px;
+      margin: 22px 0 0 22px;
     }
+    #item-rover.direction-n::after { transform: rotate(90deg); }
+    #item-rover.direction-e::after { transform: rotateY(180deg); }
+    #item-rover.direction-s::after { transform: rotate(-90deg); }
+    #item-rover.direction-w::after { transform: rotateY(0deg); }
 
-    .obstacle {}
     .obstacle::after {
       content: '🌋';
       display: block;
+      width: 50px;
+      height: 50px;
+      margin: 22px 0 0 22px;
     }
   </style>
 </head>
 <body>
 
-  <!-- div.wrapper>div.item[data-coord="$"]$*36 -->
   <div class="wrapper">
     <div id="plot-0-0" class="plot-item"></div>
-    <div id="plot-0-1" class="plot-item"></div>
-    <div id="plot-0-2" class="plot-item"></div>
-    <div id="plot-0-3" class="plot-item"></div>
-    <div id="plot-0-4" class="plot-item"></div>
-    <div id="plot-0-5" class="plot-item"></div>
     <div id="plot-1-0" class="plot-item"></div>
-    <div id="plot-1-1" class="plot-item"></div>
-    <div id="plot-1-2" class="plot-item"></div>
-    <div id="plot-1-3" class="plot-item"></div>
-    <div id="plot-1-4" class="plot-item"></div>
-    <div id="plot-1-5" class="plot-item"></div>
     <div id="plot-2-0" class="plot-item"></div>
-    <div id="plot-2-1" class="plot-item"></div>
-    <div id="plot-2-2" class="plot-item"></div>
-    <div id="plot-2-3" class="plot-item"></div>
-    <div id="plot-2-4" class="plot-item"></div>
-    <div id="plot-2-5" class="plot-item"></div>
     <div id="plot-3-0" class="plot-item"></div>
-    <div id="plot-3-1" class="plot-item"></div>
-    <div id="plot-3-2" class="plot-item"></div>
-    <div id="plot-3-3" class="plot-item"></div>
-    <div id="plot-3-4" class="plot-item"></div>
-    <div id="plot-3-5" class="plot-item"></div>
     <div id="plot-4-0" class="plot-item"></div>
-    <div id="plot-4-1" class="plot-item"></div>
-    <div id="plot-4-2" class="plot-item"></div>
-    <div id="plot-4-3" class="plot-item"></div>
-    <div id="plot-4-4" class="plot-item"></div>
-    <div id="plot-4-5" class="plot-item"></div>
     <div id="plot-5-0" class="plot-item"></div>
+    <div id="plot-0-1" class="plot-item"></div>
+    <div id="plot-1-1" class="plot-item"></div>
+    <div id="plot-2-1" class="plot-item"></div>
+    <div id="plot-3-1" class="plot-item"></div>
+    <div id="plot-4-1" class="plot-item"></div>
     <div id="plot-5-1" class="plot-item"></div>
+    <div id="plot-0-2" class="plot-item"></div>
+    <div id="plot-1-2" class="plot-item"></div>
+    <div id="plot-2-2" class="plot-item"></div>
+    <div id="plot-3-2" class="plot-item"></div>
+    <div id="plot-4-2" class="plot-item"></div>
     <div id="plot-5-2" class="plot-item"></div>
+    <div id="plot-0-3" class="plot-item"></div>
+    <div id="plot-1-3" class="plot-item"></div>
+    <div id="plot-2-3" class="plot-item"></div>
+    <div id="plot-3-3" class="plot-item"></div>
+    <div id="plot-4-3" class="plot-item"></div>
     <div id="plot-5-3" class="plot-item"></div>
+    <div id="plot-0-4" class="plot-item"></div>
+    <div id="plot-1-4" class="plot-item"></div>
+    <div id="plot-2-4" class="plot-item"></div>
+    <div id="plot-3-4" class="plot-item"></div>
+    <div id="plot-4-4" class="plot-item"></div>
     <div id="plot-5-4" class="plot-item"></div>
+    <div id="plot-0-5" class="plot-item"></div>
+    <div id="plot-1-5" class="plot-item"></div>
+    <div id="plot-2-5" class="plot-item"></div>
+    <div id="plot-3-5" class="plot-item"></div>
+    <div id="plot-4-5" class="plot-item"></div>
     <div id="plot-5-5" class="plot-item"></div>
   </div>
 

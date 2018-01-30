@@ -34,18 +34,40 @@ class Rover {
 
   sendCommands(roadmap = [], subscribe = {}) {
     const { directions } = this.props;
+    let plot = {};
+    let abort = false;
 
-    roadmap.map((command, index) => {
-      ((i, data) => {
-        setTimeout( () => {
-          subscribe.next(this.move(command));
-
-          if (i === (roadmap.length - 1)) {
-            subscribe.complete();
+    const traceroute = roadmap
+      .map((command) => this.move(command))
+      .forEach((plot, index, arr) => {
+        if (abort === false) {
+          if (plot.success === false) {
+            abort = true;
           }
-        }, i*1000);
-      })( index, command );
-    });
+
+          ((i, data) => {
+            setTimeout( () => {
+              subscribe.next(data);
+
+              if (i === (arr.length - 1) || data.success === false) {
+                subscribe.complete(arr);
+              }
+            }, i * 1000);
+          })( index, plot );
+        }
+      });
+
+    // roadmap.map((command, index) => {
+    //   ((i, data) => {
+    //     setTimeout( () => {
+    //       subscribe.next(this.move(command));
+    //
+    //       if (i === (roadmap.length - 1)) {
+    //         subscribe.complete();
+    //       }
+    //     }, i * 1000);
+    //   })( index, command );
+    // });
   }
 
   /**
@@ -54,28 +76,35 @@ class Rover {
    */
   move(command) {
     let { way, position } = this.state;
+    const response = { success: true, msg: '', command};
 
     switch (command) {
       case 'l':
-        way = this.turnLeft();
+        way = this.turnLeft(way);
         break;
       case 'r':
-        way = this.turnRight();
+        way = this.turnRight(way);
         break;
       case 'f':
-        position = this.moveForward();
+        position = this.moveForward(position);
         break;
       case 'b':
-        position = this.moveBackward();
+        position = this.moveBackward(position);
         break;
       default:
-        throw new Error('Abort procedure, unknow command!');
+        response.success = false;
+        response.msg = 'Abort procedure, unknow command!';
     }
 
-    this.state.way = way;
-    this.state.position = position;
+    if(this.planet.obstacleCollision(`${position.x}-${position.y}`)) {
+      response.success = false;
+      response.msg = 'Abort procedure, collision detected!';
+    } else {
+      this.state.way = way;
+      this.state.position = position;
+    }
 
-    return { position, way };
+    return Object.assign({}, response, position, { way, direction: this.props.directions[way] });
   }
 
   checkEdgeMap(axis, size) {
@@ -93,9 +122,9 @@ class Rover {
     return value;
   }
 
-  moveForward({ backward = false } = {}) {
+  moveForward(position, { backward = false } = {}) {
     const { width, height } = this.planet.props;
-    const { way, position } = this.state;
+    const { way } = this.state;
     const direction = this.props.directions[way];
 
     let increase = [EST, SOUTH].includes(direction) ? 1 : -1;
@@ -110,27 +139,21 @@ class Rover {
       position.x = this.checkEdgeMap((position.x + increase), width);
     }
 
-    if(this.planet.obstacleCollision(`${position.x}-${position.y}`)) {
-      throw new Error('Abort procedure, collision detected!');
-    }
-
     return position;
   }
 
-  moveBackward() {
-    return this.moveForward({ backward: true });
+  moveBackward(position) {
+    return this.moveForward(position, { backward: true });
   }
 
-  turnRight() {
+  turnRight(way) {
     const { directions } = this.props;
-    const { way } = this.state;
 
     return (way + 1 < directions.length) ? way + 1 : 0;
   }
 
-  turnLeft() {
+  turnLeft(way) {
     const { directions } = this.props;
-    const { way } = this.state;
 
     return ((way - 1) >= 0) ? way - 1 : (directions.length - 1);
   }
