@@ -8,14 +8,12 @@ class Planet {
     };
 
     this.props = Object.assign({}, props, options);
-    // this.props = { ...props, ...options };
     this.props.maxObstacle = this.calcolateMaxObstacle();
 
     this.store = {
       rovers: [],
       obstacleCoords: this.props.obstacle || this.generateObstacleCoords(),
     };
-    this.store.map = this.generateMatrix();
   }
 
   obstacleCollision(pos) {
@@ -30,18 +28,8 @@ class Planet {
       height,
       maxObstacle,
     } = this.props;
-    let coord;
-    let obstacles = [];
 
-    [...Array(maxObstacle).keys()].forEach(() => {
-      do {
-        coord = `${this.randomResult(width)}-${this.randomResult(height)}`;
-      } while (obstacles.includes(coord));
-
-      obstacles.push(coord);
-    });
-
-    return obstacles;
+    return [...Array(maxObstacle).keys()].map(() => `${this.randomResult(width)}-${this.randomResult(height)}`);
   }
 
   calcolateMaxObstacle() {
@@ -89,39 +77,10 @@ class Planet {
     return data;
   }
 
-  generateMatrix() {
-    const {
-      width,
-      height,
-    } = this.props;
-
-    return [...Array(width).keys()].map(y => [...Array(height).keys()].map((x) => {
-      const pos = `${y}-${x}`;
-      return {
-        pos,
-        tipologia: this.obstacleCollision(pos) !== true ? 'free' : 'busy',
-      };
-    }));
-  }
-
   getRoverCoords() {
     const { roverCoords } = this.store;
 
     return roverCoords;
-  }
-
-  getNextPosition({x, y, way, coord}) {
-    const {
-      width,
-      height,
-    } = this.props;
-
-
-
-    // Da eseguire dopo il calcolo delle successive coordinate
-    // if (this.obstacleCollision(coord) === true) {
-    //   throw new Error('Halt! Detect obstacle on the route!');
-    // }
   }
 }
 

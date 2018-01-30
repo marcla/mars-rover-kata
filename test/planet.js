@@ -20,18 +20,4 @@ describe('Planet', () => {
 
     assert.isTrue(collision);
   })
-
-  it('should return map width', () => {
-    let Jupiter = new Planet({ width: 3, height: 6 });
-    const { map } = Jupiter.store;
-
-    assert.equal(map.length, 3);
-  })
-
-  it('should return map height', () => {
-    let Jupiter = new Planet({ width: 3, height: 6 });
-    const { map } = Jupiter.store;
-
-    assert.equal(map[0].length, 6);
-  })
 });

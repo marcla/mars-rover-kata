@@ -3,7 +3,7 @@
     const Mars = new Planet({
       width: 6,
       height: 6,
-      rateObstacle: 6,
+      rateObstacle: 8,
     });
     const Explorer = new Rover(Mars, { name: 'Explorer' });
     const Display = new View(Mars, Explorer);

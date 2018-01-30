@@ -19,7 +19,6 @@ class View {
     const rover = this.rover;
     const roverPosition = rover.getPosition();
     const roverDirection = rover.getDirection();
-    console.log(rover.getDirection());
 
     roverDom.className = this.directionClassName(roverDirection);
     document.getElementById(`plot-${roverPosition.x}-${roverPosition.y}`).appendChild(roverDom);
