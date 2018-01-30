@@ -47,11 +47,12 @@ class Rover {
 
           ((i, data) => {
             setTimeout( () => {
-              subscribe.next(data);
-
               if (data.success === false) {
                 subscribe.onerror(data, arr);
+                return false;
               }
+
+              subscribe.next(data);
 
               if (i === arr.length) {
                 subscribe.complete(data, arr);
@@ -102,7 +103,7 @@ class Rover {
 
     if(this.planet.obstacleCollision(`${position.x}-${position.y}`)) {
       response.success = false;
-      response.msg = 'Abort procedure, collision detected!';
+      response.msg = `Abort procedure, collision detected in x:${position.x} y:${position.y}!`;
     } else {
       this.state.way = way;
       this.state.position = position;
