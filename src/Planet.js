@@ -30,8 +30,18 @@ class Planet {
       height,
       maxObstacle,
     } = this.props;
+    let coord;
+    let obstacles = [];
 
-    return [...Array(maxObstacle).keys()].map(() => `${this.randomResult(width)}-${this.randomResult(height)}`);
+    [...Array(maxObstacle).keys()].forEach(() => {
+      do {
+        coord = `${this.randomResult(width)}-${this.randomResult(height)}`;
+      } while (obstacles.includes(coord));
+
+      obstacles.push(coord);
+    });
+
+    return obstacles;
   }
 
   calcolateMaxObstacle() {

@@ -34,20 +34,18 @@ class Rover {
 
   sendCommands(roadmap = [], subscribe = {}) {
     const { directions } = this.props;
-    let plot;
 
-    const traceroute = roadmap.map((command) => {
-      plot = this.move(command);
-      Object.assign(plot, {
-        cmd: command,
-        direction: directions[plot.way]
-      });
-      subscribe.next(plot);
+    roadmap.map((command, index) => {
+      ((i, data) => {
+        setTimeout( () => {
+          subscribe.next(this.move(command));
 
-      return plot;
+          if (i === (roadmap.length - 1)) {
+            subscribe.complete();
+          }
+        }, i*1000);
+      })( index, command );
     });
-
-    subscribe.complete(traceroute);
   }
 
   /**

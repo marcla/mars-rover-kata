@@ -13,21 +13,30 @@
       grid-template-columns: repeat(6, 1fr);
       grid-auto-rows: 100px;
 
-      border-top: 1px solid #ccc;
-      border-left: 1px solid #ccc;
+      border-top: 1px dashed #ccc;
+      border-left: 1px dashed #ccc;
     }
 
-    .wrapper > div {
-      background-color: green;
-      border-right: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
+    .wrapper > .plot-item {
+      background-color: #BF1104;
+      border-right: 1px dashed #ccc;
+      border-bottom: 1px dashed #ccc;
       height: 99px;
 
-      font-size: 50px; 👾
+      font-size: 50px;
       align-items: center;
+    }
 
-      /* align-self: center;
-      justify-self: center; */
+    .rover {}
+    .rover::after {
+      content: '🚌';
+      display: block;
+    }
+
+    .obstacle {}
+    .obstacle::after {
+      content: '🌋';
+      display: block;
     }
   </style>
 </head>
@@ -35,42 +44,42 @@
 
   <!-- div.wrapper>div.item[data-coord="$"]$*36 -->
   <div class="wrapper">
-    <div id="plot-0-0" class="item"></div>
-    <div id="plot-0-1" class="item"></div>
-    <div id="plot-0-2" class="item"></div>
-    <div id="plot-0-3" class="item"></div>
-    <div id="plot-0-4" class="item"></div>
-    <div id="plot-0-5" class="item"></div>
-    <div id="plot-1-0" class="item"></div>
-    <div id="plot-1-1" class="item"></div>
-    <div id="plot-1-2" class="item"></div>
-    <div id="plot-1-3" class="item"></div>
-    <div id="plot-1-4" class="item"></div>
-    <div id="plot-1-5" class="item"></div>
-    <div id="plot-2-0" class="item"></div>
-    <div id="plot-2-1" class="item"></div>
-    <div id="plot-2-2" class="item"></div>
-    <div id="plot-2-3" class="item"></div>
-    <div id="plot-2-4" class="item"></div>
-    <div id="plot-2-5" class="item"></div>
-    <div id="plot-3-0" class="item"></div>
-    <div id="plot-3-1" class="item"></div>
-    <div id="plot-3-2" class="item"></div>
-    <div id="plot-3-3" class="item"></div>
-    <div id="plot-3-4" class="item"></div>
-    <div id="plot-3-5" class="item"></div>
-    <div id="plot-4-0" class="item"></div>
-    <div id="plot-4-1" class="item"></div>
-    <div id="plot-4-2" class="item"></div>
-    <div id="plot-4-3" class="item"></div>
-    <div id="plot-4-4" class="item"></div>
-    <div id="plot-4-5" class="item"></div>
-    <div id="plot-5-0" class="item"></div>
-    <div id="plot-5-1" class="item"></div>
-    <div id="plot-5-2" class="item"></div>
-    <div id="plot-5-3" class="item"></div>
-    <div id="plot-5-4" class="item"></div>
-    <div id="plot-5-5" class="item"></div>
+    <div id="plot-0-0" class="plot-item"></div>
+    <div id="plot-0-1" class="plot-item"></div>
+    <div id="plot-0-2" class="plot-item"></div>
+    <div id="plot-0-3" class="plot-item"></div>
+    <div id="plot-0-4" class="plot-item"></div>
+    <div id="plot-0-5" class="plot-item"></div>
+    <div id="plot-1-0" class="plot-item"></div>
+    <div id="plot-1-1" class="plot-item"></div>
+    <div id="plot-1-2" class="plot-item"></div>
+    <div id="plot-1-3" class="plot-item"></div>
+    <div id="plot-1-4" class="plot-item"></div>
+    <div id="plot-1-5" class="plot-item"></div>
+    <div id="plot-2-0" class="plot-item"></div>
+    <div id="plot-2-1" class="plot-item"></div>
+    <div id="plot-2-2" class="plot-item"></div>
+    <div id="plot-2-3" class="plot-item"></div>
+    <div id="plot-2-4" class="plot-item"></div>
+    <div id="plot-2-5" class="plot-item"></div>
+    <div id="plot-3-0" class="plot-item"></div>
+    <div id="plot-3-1" class="plot-item"></div>
+    <div id="plot-3-2" class="plot-item"></div>
+    <div id="plot-3-3" class="plot-item"></div>
+    <div id="plot-3-4" class="plot-item"></div>
+    <div id="plot-3-5" class="plot-item"></div>
+    <div id="plot-4-0" class="plot-item"></div>
+    <div id="plot-4-1" class="plot-item"></div>
+    <div id="plot-4-2" class="plot-item"></div>
+    <div id="plot-4-3" class="plot-item"></div>
+    <div id="plot-4-4" class="plot-item"></div>
+    <div id="plot-4-5" class="plot-item"></div>
+    <div id="plot-5-0" class="plot-item"></div>
+    <div id="plot-5-1" class="plot-item"></div>
+    <div id="plot-5-2" class="plot-item"></div>
+    <div id="plot-5-3" class="plot-item"></div>
+    <div id="plot-5-4" class="plot-item"></div>
+    <div id="plot-5-5" class="plot-item"></div>
   </div>
 
   <script src="./Planet.js"></script>
