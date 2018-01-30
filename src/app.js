@@ -8,34 +8,16 @@
     const Explorer = new Rover(Mars, { name: 'Explorer' });
     const Display = new View(Mars, Explorer);
 
-    // console.log(Mars.store.map);
-    console.log(Explorer.getPosition());
-
     Explorer.sendCommands(Display.generateRoute(), {
       next: (data) => {
-        console.log(JSON.stringify(data));
-        if (data.success === true) {
-          Display.moveRover(data);
-        }
+        // console.log(JSON.stringify(data));
+        Display.moveRover(data);
       },
-      complete: (data) => {
-        console.log('=== COMPLETE ===');
-        console.log(data);
+      complete: (data, arr) => {
+        Display.writeLogbook(`Sequence of ${arr.length} commands completed successfully!`);
       },
-      onerror: (e) => {
-        console.log('=== ERROR ===');
-        console.log(e);
+      onerror: (data) => {
+        Display.writeLogbook(`${data.msg}`);
       }
     });
-
-    // Explorer.sendCommands(['f','b','b','b','b','r','b','b','b','l','r','b','b','b','l','b','l','f','l','b'], {
-    //   next: (data) => {
-    //     Display.moveRover(data.position);
-    //     console.log(JSON.stringify(data));
-    //   },
-    //   complete: (data) => {
-    //     console.log('=== COMPLETE ===');
-    //     console.log(data);
-    //   }
-    // });
 })();

@@ -5,10 +5,9 @@ class View {
     this.rover = Rover;
 
     this.props = {
-      // obstacle: '🌋',
-      // rover: '🤖',
-      // extra: '👾',
-      roverDom: this.createRoverDomElement()
+      logbook: [],
+      roverDom: this.createRoverDomElement(),
+      logbookDom: document.getElementById('logbook'),
     }
 
     this.prepareGridLayout();
@@ -17,9 +16,14 @@ class View {
   prepareGridLayout() {
     const { roverDom } = this.props;
     const { obstacleCoords } = this.planet.store;
-    const roverPosition = this.rover.getPosition();
+    const rover = this.rover;
+    const roverPosition = rover.getPosition();
+    const roverDirection = rover.getDirection();
+    console.log(rover.getDirection());
 
-    this.moveRover(roverPosition);
+    roverDom.className = this.directionClassName(roverDirection);
+    document.getElementById(`plot-${roverPosition.x}-${roverPosition.y}`).appendChild(roverDom);
+    this.writeLogbook(`Start position x:${roverPosition.x} y:${roverPosition.y} in direction ${roverDirection}`);
 
     obstacleCoords.forEach((coord, index) => {
       document.getElementById(`plot-${coord}`).appendChild(this.createObstacleDomElement(index));
@@ -47,14 +51,24 @@ class View {
     roverDom.className = this.directionClassName(data.direction);
 
     document.getElementById(`plot-${data.x}-${data.y}`).appendChild(roverDom);
+
+    if (['l','r'].includes(data.command)) {
+      this.writeLogbook(`turn rover to ${data.command === 'r' ? 'right' : 'left'} to ${data.direction}`);
+    } else {
+      this.writeLogbook(`move rover ${data.command === 'f' ? 'forward' : 'backward'} to x:${data.x} y:${data.y} in direction ${data.direction}`);
+    }
   }
 
   directionClassName(dir = '') {
     return `direction-${dir.toLowerCase()}`;
   }
 
-  subscribe(data) {
+  writeLogbook(message) {
+    const { logbookDom } = this.props;
+    this.props.logbook.push(message);
 
+    const space = "\r\n";
+    logbookDom.prepend(`${this.props.logbook.length} ${message}${space}`);
   }
 
   generateRoute(size = 20) {

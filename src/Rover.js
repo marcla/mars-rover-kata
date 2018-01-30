@@ -49,11 +49,15 @@ class Rover {
             setTimeout( () => {
               subscribe.next(data);
 
-              if (i === (arr.length - 1) || data.success === false) {
-                subscribe.complete(arr);
+              if (data.success === false) {
+                subscribe.onerror(data, arr);
               }
-            }, i * 1000);
-          })( index, plot );
+
+              if (i === arr.length) {
+                subscribe.complete(data, arr);
+              }
+            }, i * 1200);
+          })( (index + 1), plot );
         }
       });
 
