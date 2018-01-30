@@ -5,8 +5,8 @@ const SOUTH = 'S';
 const WEST = 'W';
 
 class Rover {
-  constructor(planet, options = {}) {
-    this.planet = planet;
+  constructor(Planet, options = {}) {
+    this.planet = Planet;
     this.props = {
       directions: [NORTH,EST,SOUTH,WEST],
     };
