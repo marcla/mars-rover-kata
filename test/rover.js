@@ -13,10 +13,6 @@ const roverOptions = {
 }
 
 describe('Rover', () => {
-  it('should pass', () => {
-    assert.isTrue(true);
-  })
-
   it('should turn right', () => {
     let Discovery = new Rover(Jupiter, { name:'Discovery' });
     Discovery.state.way = 0;

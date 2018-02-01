@@ -10,13 +10,9 @@ const planetOptions = {
 }
 
 describe('Planet', () => {
-  it('should pass', () => {
-    assert.isTrue(true);
-  })
-
   it('should collision with an obstacle', () => {
     let Jupiter = new Planet(planetOptions);
-    const collision = Jupiter.obstacleCollision({x:1, y:1});
+    const collision = Jupiter.obstacleCollision('1-1');
 
     assert.isTrue(collision);
   })

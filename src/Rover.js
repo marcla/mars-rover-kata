@@ -61,18 +61,6 @@ class Rover {
           })( (index + 1), plot );
         }
       });
-
-    // roadmap.map((command, index) => {
-    //   ((i, data) => {
-    //     setTimeout( () => {
-    //       subscribe.next(this.move(command));
-    //
-    //       if (i === (roadmap.length - 1)) {
-    //         subscribe.complete();
-    //       }
-    //     }, i * 1000);
-    //   })( index, command );
-    // });
   }
 
   /**
